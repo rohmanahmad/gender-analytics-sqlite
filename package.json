@@ -1,0 +1,22 @@
+{
+  "name": "gender-analytics-sqlite",
+  "version": "0.0.1",
+  "description": "gender sqlite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohmanahmad/gender-analytics-sqlite.git"
+  },
+  "author": "wildan ikbar pratama",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohmanahmad/gender-analytics-sqlite/issues"
+  },
+  "homepage": "https://github.com/rohmanahmad/gender-analytics-sqlite#readme",
+  "dependencies": {
+    "sqlite3": "^5.1.4"
+  }
+}

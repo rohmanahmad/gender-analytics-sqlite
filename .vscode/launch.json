@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Install",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "/Users/ivo/.nvm/versions/node/v19.4.0/bin/node",
+            "program": "${workspaceFolder}/index.js",
+            "args": ["--action=install"],
+            "outputCapture": "std"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Add Training Data",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "/Users/ivo/.nvm/versions/node/v19.4.0/bin/node",
+            "program": "${workspaceFolder}/index.js",
+            "args": ["--action=train", "--data=mohammad wahyudi:male,siska permatasari:female"],
+            "outputCapture": "std"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Analyze",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "/Users/ivo/.nvm/versions/node/v19.4.0/bin/node",
+            "program": "${workspaceFolder}/index.js",
+            "args": ["--action=analyze", "--data=mohammad wahyudi, sari mahmudah"],
+            "outputCapture": "std"
+        }
+    ]
+}
