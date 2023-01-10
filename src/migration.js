@@ -1,3 +1,5 @@
+const currentDateFormatted = require('moment')().format('YYYY-MM-DD HH:mm:ss')
+
 module.exports = [
     {
         actionName: 'Create Table "nama_per_kata"',
@@ -10,7 +12,7 @@ module.exports = [
         test: [
             {
                 sql: `INSERT INTO nama_per_kata(name, gender, created_at, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(name) DO UPDATE SET updated_at=?`,
-                data: [ '__test', 'male', new Date(), null, new Date() ]
+                data: [ '__test', 'male', currentDateFormatted, null, currentDateFormatted ]
             }
         ]
     },
@@ -25,7 +27,7 @@ module.exports = [
         test: [
             {
                 sql: "INSERT INTO analisa(fullname, gender, created_at, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(fullname) DO UPDATE SET updated_at=?",
-                data: [ '__test', 'male', new Date(), null, new Date() ]
+                data: [ '__test', 'male', currentDateFormatted, null, currentDateFormatted ]
             }
         ]
     }

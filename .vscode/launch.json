@@ -25,7 +25,7 @@
             ],
             "runtimeExecutable": "/Users/ivo/.nvm/versions/node/v19.4.0/bin/node",
             "program": "${workspaceFolder}/index.js",
-            "args": ["--action=train", "--data=mohammad wahyudi:male,siska permatasari:female"],
+            "args": ["--action=train", "--data=mohammad wahyudi.mse.ma:male,siska permatasari:female,sam'un:male"],
             "outputCapture": "std"
         },
         {

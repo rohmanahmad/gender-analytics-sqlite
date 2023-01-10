@@ -1,18 +1,23 @@
 'use strict'
 
-const path = require('path')
 const sqlite3 = require('sqlite3').verbose()
-const dbFile = path.resolve('dbFiles/gender-analytics.db')
 
-const db = new sqlite3.Database(dbFile, (err) => {
-    if (err) {
-      console.error(err.message);
+class DB {
+  constructor({ dbpath }) {
+    this.dbpath = dbpath
+    this.connection = null
+  }
+
+  connect() {
+    if (!this.connection) {
+      this.connection = new sqlite3.Database(this.dbpath, (err) => {
+        if (err) {
+          console.error(err.message)
+        }
+        // console.log('DB Connected!');
+      })
     }
-    console.log('Connected to the chinook database.');
-  })
-
-module.exports = {
-    query: db.run,
-    DB: db,
-    serialize: db.serialize
+  }
 }
+
+module.exports = DB
