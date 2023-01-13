@@ -37,7 +37,7 @@
             ],
             "runtimeExecutable": "/Users/ivo/.nvm/versions/node/v19.4.0/bin/node",
             "program": "${workspaceFolder}/index.js",
-            "args": ["--action=analyze", "--data=mohammad wahyudi, sari mahmudah"],
+            "args": ["--action=analyze", "--data=alexander rotua, muhammad razaq, yayuk iqtifar titis, yayuk iqtifar"],
             "outputCapture": "std"
         }
     ]

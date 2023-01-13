@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rohmanahmad/gender-analytics-sqlite#readme",
   "dependencies": {
+    "lodash.flatten": "^4.4.0",
     "moment": "^2.29.4",
     "sqlite3": "^5.1.4"
   }

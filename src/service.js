@@ -5,8 +5,15 @@ const fs = require('fs')
 const moment = require('moment')
 const path = require('path')
 const DB = require('./db')
+const flatten = require('lodash.flatten')
 const dbName = 'gender-analytics.db'
 const dbFile = path.resolve(`dbFiles/${dbName}`)
+
+const cleanArray = function (str, splitter=',', filter) {
+    let x = str.split(splitter).map(x => x.trim())
+    if (filter) x = x.filter(filter)
+    return x
+}
 
 class Service {
     constructor(data) {
@@ -140,10 +147,68 @@ class TrainService extends Service {
 class AnalyzeService extends Service {
     async handle() {
         try {
-            // 
+            this.db.connect()
+            const splitData = cleanArray(this.data.toUpperCase()).map(x => cleanArray(x, ' ', (n => n.length > 1))).filter(x => x.length > 0)
+            const deepArray = flatten(splitData)
+            const q = deepArray.map(x => 'name=?').join(' OR ')
+            const data = await this.getData('SELECT name, gender FROM nama_per_kata WHERE ' + q, deepArray)
+            if (data && data.length > 0) {
+                const obj = data.reduce((r, x) => {
+                    r[x.name] = x
+                    return r
+                }, {})
+                for (const arrName of splitData) {
+                    const name = arrName.join(' ')
+                    console.log('Analyzing Name', name, '...')
+                    const result = {f: 0, m: 0}
+                    for (const namePerkata of arrName) {
+                        let gender = 'not-found'
+                        const r = obj[namePerkata]
+                        if (r) {
+                            gender = r.gender
+                            if (gender.toLowerCase() === 'male') result['m'] += 1
+                            else result['f'] += 1
+                        }
+                        console.log(' -', namePerkata, `(${gender})`)
+                    }
+                    const percentage = this.getPercentage(result)
+                    console.log('Conclusion:', name, 'is', this.getDominan(result, percentage))
+                }
+            }
         } catch (err) {
             throw err
         }
+    }
+
+    getPercentage({f, m}) {
+        const total = f + m
+        const percentageOfFemale = Math.ceil(f / total * 100)
+        const percentageOfMale = Math.ceil(m / total * 100)
+        return {
+            f: percentageOfFemale,
+            m: percentageOfMale
+        }
+    }
+
+    getDominan({f, m}, percentage) {
+        let conclusion = 'bingung'
+        if (f > m) conclusion = 'female' + ` (${percentage['f']}%)`
+        else if (f < m) conclusion = 'male' + ` (${percentage['m']}%)`
+        else if (f == m) conclusion = 'female' + ` (${percentage['f']}%)`
+        return conclusion
+    }
+
+    async getData (sql, data) {
+        return new Promise((resolve, reject) => {
+            const dbCon = this.db.connection
+            dbCon.all(
+                sql,
+                data,
+                (err, row) => {
+                    if (err) reject(err)
+                    else resolve(row)
+                })
+        })
     }
 }
 
