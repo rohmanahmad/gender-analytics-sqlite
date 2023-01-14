@@ -14,7 +14,7 @@ const cleanArray = function (str, splitter=',', filter) {
     if (filter) x = x.filter(filter)
     return x
 }
-
+/* Base Sevice */
 class Service {
     constructor(data) {
         this.data = data
@@ -22,7 +22,7 @@ class Service {
     }
 
     getParsedData() {
-        const datas = this.data.trim().split(',')
+        const datas = this.data.trim().toLowerCase().split(',')
         let parsedData = []
         for (const xData of datas) {
             if (!xData) continue
@@ -51,7 +51,7 @@ class Service {
             .filter(x => x.length > 3)
     }
 }
-
+/* Class Untuk Instalasi */
 class InstallService extends Service {
     async handle() {
         try {
@@ -107,7 +107,7 @@ class InstallService extends Service {
         return parts.map(x => x.split(',').map(x => x.trim()))
     }
 }
-
+/* Class Untuk Mentraining data */
 class TrainService extends Service {
     async handle() {
         try {
@@ -143,7 +143,7 @@ class TrainService extends Service {
         return validData
     }
 }
-
+/* Class untuk Menganalisa/mengklasifikasi dari suatu data */
 class AnalyzeService extends Service {
     async handle() {
         try {
